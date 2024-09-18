@@ -1,20 +1,27 @@
-package com.mycompany.employeev1;
+package version1;
 
 public class HourlyEmployee {
-    
     public float totalHoursWorked;
     public double ratePerHour;
     public String empName;
     public int empID;
-    
-    
+
+    public HourlyEmployee() {
+
+    }
+
+    public HourlyEmployee( String empName, int empID) {
+        this.empName = empName;
+        this.empID = empID;
+    }
+
     public HourlyEmployee(float totalHoursworked, double ratePerHour, String empName, int empID) {
         this.totalHoursWorked = totalHoursworked;
         this.ratePerHour = ratePerHour;
         this.empName = empName;
         this.empID = empID;
     }
-   
+
     public float getTotalHoursWorked() {
         return totalHoursWorked;
     }
@@ -47,39 +54,37 @@ public class HourlyEmployee {
         this.empID = empID;
     }
 
-  
-    
-    
+
+
+
     public double copmuteSalary(){
-        double salary;
-        double overTimePay;
-        float excessTime;
-        
-        if(this.totalHoursWorked > 0 && this.totalHoursWorked <= 40 ){
+        double salary = 0;
+
+        if(this.totalHoursWorked <= 40){
             salary = this.totalHoursWorked * this.ratePerHour;
-            System.out.println("Salary:" + salary);
-        }else{
-            excessTime = this.totalHoursWorked - 40;
-            salary = 40 * this.ratePerHour;
-            overTimePay = excessTime * this.ratePerHour * 1.5;
-            salary += overTimePay;
-            System.out.println("Salary: " + salary);
+        }else if(this.totalHoursWorked > 40){
+            double regularPay = 40 * this.ratePerHour;
+            double overtimeRate = this.ratePerHour * 1.5;
+            double excessTime = this.totalHoursWorked - 40;
+            double overtimePay = overtimeRate * excessTime;
+            salary = regularPay + overtimePay;
         }
-        
+
+
         return salary;
     }
-    
+
     public void display(){
-         System.out.println(this);
+        System.out.println(this);
     }
-    
-    
-    
-    
+
+
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("Employee Name: ");
         sb.append(empName);
         sb.append("\n");
@@ -92,16 +97,10 @@ public class HourlyEmployee {
         sb.append("Rate Per Hour: ");
         sb.append(ratePerHour);
         sb.append("\n");
-        
-        
-        
+        sb.append("Salary: ");
+        sb.append(copmuteSalary());
+
+
         return sb.toString();
     }
-    
-    
-    
-   
-
-
-    
 }
