@@ -20,11 +20,11 @@ public class MyTime {
 
 
     public void setHours(int hours) {
-        this.hours = (hours <= 12 && hours > 0) ? hours : 12;
+        this.hours = (hours <= 12 && hours > 0) ? hours : this.hours;
     }
 
     public int getHours() {
-        return this.hours;
+        return hours;
     }
 
     public int getMinutes() {
@@ -32,26 +32,27 @@ public class MyTime {
     }
 
     public void setMinutes(int minutes) {
-        this.minutes = (minutes < 60 && minutes >= 0) ? minutes : 0;
+        this.minutes = (minutes < 60 && minutes >= 0) ? minutes : this.minutes;
     }
+
 
     public int getSeconds() {
         return seconds;
     }
 
     public void setSeconds(int seconds) {
-        this.seconds = (seconds < 60 && seconds >= 0) ? seconds : 0;
+        this.seconds = (seconds < 60 && seconds >= 0) ? seconds : this.seconds;
     }
 
     public boolean isPM(){ return isPM; }
 
-    public void setPM(boolean PM){ isPM = PM;}
+    public void setPM(boolean isPM){ this.isPM = isPM;}
 
 
     // tick by second
     public void tickbySec(){
-        this.seconds++;
-        if(this.seconds >= 60){
+        seconds++;
+        if(this.seconds > 59){
             this.seconds = 0;
             tickMin();
         }
@@ -60,8 +61,8 @@ public class MyTime {
 
     // tick by minute
     public void tickMin(){
-        this.minutes++;
-        if(this.minutes >= 60){
+        minutes++;
+        if(this.minutes > 59){
             this.minutes = 0;
             tickHour();
         }
@@ -69,72 +70,44 @@ public class MyTime {
 
     // tick by hour
     public void tickHour(){
-        this.hours++;
+        hours++;
         if(this.hours > 12){
-            this.hours = 1;
-            toggleMeredian();
+            this.hours = 0;
+            this.isPM = !isPM;
         }
     }
 
-    // tick by meredian
-    public void toggleMeredian(){
-        isPM = !isPM;
-    }
 
 
     // advance time
     public void advanceTime(int seconds) {
-        int totalSeconds = this.seconds + seconds;
-        this.seconds = totalSeconds % 60;
+        this.seconds += seconds;
 
-        int totalMinutes = this.minutes + totalSeconds / 60;
-        this.minutes = totalMinutes % 60;
+        this.minutes += this.seconds / 60;
+        this.seconds = this.seconds % 60;
 
-        int totalHours = this.hours + totalMinutes / 60;
-        this.hours = totalHours % 12;
+        this.hours += this.minutes / 60;
+        this.minutes = this.seconds % 60;
+
+        if (this.hours > 12) {
+            this.isPM = !this.isPM;
+            this.hours -= 12;
+            this.hours = this.hours % 12;
+        }
 
         if(this.hours == 0){
             this.hours = 12;
         }
 
-        if (totalHours >= 12) {
-            toggleMeredian();
-        }
     }
 
 
     @Override
     public String toString() {
-        return String.format("%02d:%02d:%02d %s", hours, minutes, seconds, isPM ? "PM" : "AM");
+        return String.format("%02d:%02d:%02d %s", hours, minutes, seconds, (isPM) ? "PM" : "AM");
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + this.hours;
-        hash = 89 * hash + this.minutes;
-        hash = 89 * hash + this.seconds;
-        return hash;
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final MyTime other = (MyTime) obj;
-        if (this.hours != other.hours) {
-            return false;
-        }
-        if (this.minutes != other.minutes) {
-            return false;
-        }
-        return this.seconds == other.seconds;
-    }
 }
+
+

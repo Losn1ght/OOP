@@ -1,22 +1,28 @@
 package version2;
 
-import java.time.LocalDate;
+
 
 public class CommissionEmployee extends Employee{
     private double totalSales;
 
-
     public CommissionEmployee() {
-        super();
+
     }
 
-    public CommissionEmployee(double totalSales) {
-        super();
-        this.totalSales = totalSales;
+    public CommissionEmployee(int empID) {
+        super(empID);
     }
 
-    public CommissionEmployee(int empID, String empName, LocalDate empBirthDate, LocalDate empDateHired, double totalSales) {
-        super(empID, empName, empBirthDate, empDateHired);
+    public CommissionEmployee(String empName) {
+        super(empName);
+    }
+
+    public CommissionEmployee(int empID, String empName) {
+        super(empID, empName);
+    }
+
+    public CommissionEmployee(int empID, String empName, double totalSales) {
+        super(empID, empName);
         this.totalSales = totalSales;
     }
 
@@ -46,7 +52,7 @@ public class CommissionEmployee extends Employee{
 
     }
 
-    @Override
+
     public void display() {
         System.out.println(this);
     }
@@ -55,11 +61,10 @@ public class CommissionEmployee extends Employee{
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(super.toString()).append("\n");
-        sb.append("Total Sales: ").append(getTotalSales());
-
-
-
+        sb.append("Employee ID: ").append(getEmpID()).append("\n");
+        sb.append("Employee name: ").append(getEmpName()).append("\n");
+        sb.append("Total sales: ").append(getTotalSales()).append("\n");
+        sb.append("Salary: $").append(computeSalary()).append("\n");
 
         return sb.toString();
     }

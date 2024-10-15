@@ -1,6 +1,5 @@
 package version2;
 
-import java.time.LocalDate;
 
 public class PieceWorkerEmployee extends Employee{
 
@@ -8,24 +7,31 @@ public class PieceWorkerEmployee extends Employee{
     private double ratePerPiece;
 
 
-    public PieceWorkerEmployee(){
-        super();
+    public PieceWorkerEmployee() {
+
     }
 
-    public PieceWorkerEmployee(int totalPiecesFinished, double ratePerPiece){
-        super();
-       this.totalPiecesFinished = totalPiecesFinished;
-       this.ratePerPiece = ratePerPiece;
+    public PieceWorkerEmployee(int empID, String empName) {
+        super(empID, empName);
     }
 
-    public PieceWorkerEmployee(int empId, String empName, LocalDate empDateHired,LocalDate empBirthDate, int totalPiecesFinished, double ratePerPiece) {
-        super(empId, empName, empBirthDate, empDateHired);
+    public PieceWorkerEmployee(String empName, int empID) {
+        super(empName, empID);
+    }
+
+    public PieceWorkerEmployee(double ratePerPiece, int totalPiecesFinished) {
+        this.ratePerPiece = ratePerPiece;
+        this.totalPiecesFinished = totalPiecesFinished;
+    }
+
+    public PieceWorkerEmployee(int empID, String empName, int totalPiecesFinished, double ratePerPiece) {
+        super(empID, empName);
         this.totalPiecesFinished = totalPiecesFinished;
         this.ratePerPiece = ratePerPiece;
     }
 
     public int getTotalPiecesFinished() {
-        return totalPiecesFinished;
+        return this.totalPiecesFinished;
     }
 
     public void setTotalPiecesFinished(int totalPiecesFinished) {
@@ -41,24 +47,14 @@ public class PieceWorkerEmployee extends Employee{
     }
 
 
-
     public double computeSalary() {
-        double salary = 0;
-
-        if (this.totalPiecesFinished <= 100) {
-            salary = this.totalPiecesFinished * this.ratePerPiece;
-        } else {
-            salary = this.totalPiecesFinished * this.ratePerPiece;
-            int hundredPieces = this.totalPiecesFinished / 100;
-            double bonus = hundredPieces * 10 * this.ratePerPiece;
-            salary += bonus;
-        }
-
-        return salary;
+        return totalPiecesFinished * ratePerPiece + ((int) totalPiecesFinished / 100) * (10 * ratePerPiece);
     }
 
 
-    public void display() {
+
+
+    public void displayHourlyEmployee() {
         System.out.println(this);
     }
 
@@ -66,11 +62,11 @@ public class PieceWorkerEmployee extends Employee{
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append(super.toString()).append("\n");
-        sb.append("Total Pieces Finished: ").append(getTotalPiecesFinished()).append("\n");
-        sb.append("Rate Per Pieces: ").append(getRatePerPiece()).append("\n");
-        sb.append("Salary: $").append(computeSalary());
-
+        sb.append("Employee ID: ").append(getEmpID()).append("\n");
+        sb.append("Employee name: ").append(getEmpName()).append("\n");
+        sb.append("Total pieces finished: ").append(getTotalPiecesFinished()).append("\n");
+        sb.append("Rate per piece: $").append(getRatePerPiece()).append("\n");
+        sb.append("Salary: $").append(computeSalary()).append("\n");
 
         return sb.toString();
     }
