@@ -1,40 +1,31 @@
 package version3;
 
-public class CommissionEmployee {
-    public double totalSales;
-    public String empName;
-    public int empID;
+public class CommissionEmployee extends Employee{
+    private double totalSales;
 
-    public CommissionEmployee() {
 
+    public CommissionEmployee(){
+      super();
     }
 
-    public CommissionEmployee(String empName, int empID) {
-        this.empName = empName;
-        this.empID = empID;
+    public CommissionEmployee(int empID){
+        super(empID);
     }
 
-    public CommissionEmployee(double totalSales, String empName, int empID) {
-        this.empName = empName;
+    public CommissionEmployee(int empID, String fName, String mName, String lName){
+        super(empID, fName, mName,lName);
+    }
+
+    public CommissionEmployee(int empID, Name empName, MyDate  empBirthDate, MyDate empDateHired)  {
+        super(empID, empName, empBirthDate, empDateHired);
+    }
+
+    public CommissionEmployee(int empID, Name empName, MyDate  empBirthDate, MyDate empDateHired, double totalSales)  {
+        super(empID, empName, empBirthDate, empDateHired);
         this.totalSales = totalSales;
-        this.empID = empID;
     }
 
-    public int getEmpID() {
-        return empID;
-    }
 
-    public void setEmpID(int empID) {
-        this.empID = empID;
-    }
-
-    public String getEmpName() {
-        return empName;
-    }
-
-    public void setEmpName(String empName) {
-        this.empName = empName;
-    }
 
     public double getTotalSales() {
         return totalSales;
@@ -71,13 +62,9 @@ public class CommissionEmployee {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("\nEmployee Name: ");
-        sb.append(empName);
-        sb.append("\nEmployee ID: ");
-        sb.append(empID);
-        sb.append("\nTotal Sales: ");
-        sb.append(totalSales);
-
+        sb.append(super.toString()).append("\n");
+        sb.append("Total sales: ").append(getTotalSales()).append("\n");
+        sb.append("Salary: $").append(computeSalary()).append("\n");
 
         return sb.toString();
     }

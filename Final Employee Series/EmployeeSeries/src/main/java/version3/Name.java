@@ -1,6 +1,6 @@
 package version3;
 
-import java.lang.reflect.Field;
+
 
 public class Name  {
 
@@ -13,51 +13,69 @@ public class Name  {
 
     }
 
-    public String getfName() {
-        return fName;
-    }
-
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-    public String getmName() {
-        return mName;
-    }
-
-    public void setmName(String mName) {
-        this.mName = mName;
-    }
-
-    public String getlName() {
-        return lName;
-    }
-
-    public void setlName(String lName) {
+    public Name(String lName) {
         this.lName = lName;
     }
 
-    public void displayName(){
+    public Name(String lName, String fName) {
+        this.fName = fName;
+        this.lName = lName;
+    }
+
+    public Name(String lName, String fName, String mName) {
+        this.lName = lName;
+        this.fName = fName;
+        this.mName = mName;
+    }
+
+    public void setName(String lName, String fName, String mName) {
+        this.lName = lName;
+        this.fName = fName;
+        this.mName = mName;
+    }
+
+    public void setFName(String fName){
+        this.fName = fName;
+    }
+
+    public String getFName(){
+        return fName;
+    }
+
+    public void setMName(String mName) {
+        this.mName = mName;
+    }
+
+    public String getMName() {
+        return mName;
+    }
+
+    public void setLName(String lName) {
+        this.lName = lName;
+    }
+
+    public String getLName() {
+        return lName;
+    }
+
+    public char getMnameInitial() {
+        return mName.charAt(0);
+    }
+
+    public void displayName() {
         System.out.println(this);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        if(fName != null){
-            sb.append(fName);
-        }
 
-        if(mName != null){
-            sb.append(" ").append(mName);
-        }
-
-        if(lName != null){
-            sb.append(" ").append(lName);
-        }
+        sb.append(getFName()).append(" ");
+        sb.append((getMName() == null) ? " " : getMnameInitial() + ". ");
+        sb.append(getLName());
 
         return sb.toString();
-
     }
+
 
 }

@@ -1,26 +1,38 @@
 package version3;
 
-public class HourlyEmployee {
-    public float totalHoursWorked;
-    public double ratePerHour;
-    public String empName;
-    public int empID;
+public class HourlyEmployee extends Employee{
+    private float totalHoursWorked;
+    private double ratePerHour;
 
     public HourlyEmployee() {
-
+        super();
     }
 
-    public HourlyEmployee( String empName, int empID) {
-        this.empName = empName;
-        this.empID = empID;
-    }
-
-    public HourlyEmployee(float totalHoursworked, double ratePerHour, String empName, int empID) {
-        this.totalHoursWorked = totalHoursworked;
+    public HourlyEmployee(int empID, Name empName, MyDate empBirthDate, MyDate empDateHired, float totalHoursWorked, double ratePerHour) {
+        super(empID, empName, empBirthDate, empDateHired);
+        this.totalHoursWorked = totalHoursWorked;
         this.ratePerHour = ratePerHour;
-        this.empName = empName;
-        this.empID = empID;
     }
+
+    public HourlyEmployee(int empID, Name empName, MyDate empBirthDate, MyDate empDateHired, double ratePerHour) {
+        super(empID, empName, empBirthDate, empDateHired);
+        this.totalHoursWorked = 0;
+        this.ratePerHour = ratePerHour;
+    }
+
+    public HourlyEmployee(int empID, Name empName, MyDate empBirthDate, MyDate empDateHired, float totalHoursWorked) {
+        super(empID, empName, empBirthDate, empDateHired);
+        this.totalHoursWorked = totalHoursWorked;
+        this.ratePerHour = 0.0;
+    }
+
+    public HourlyEmployee(int empID, Name empName, MyDate empBirthDate, MyDate empDateHired) {
+        super(empID, empName, empBirthDate, empDateHired);
+        this.totalHoursWorked = 0;
+        this.ratePerHour = 0.0;
+    }
+
+
 
     public float getTotalHoursWorked() {
         return totalHoursWorked;
@@ -38,38 +50,17 @@ public class HourlyEmployee {
         this.ratePerHour = ratePerHour;
     }
 
-    public String getEmpName() {
-        return empName;
-    }
 
-    public void setEmpName(String empName) {
-        this.empName = empName;
-    }
-
-    public int getEmpID() {
-        return empID;
-    }
-
-    public void setEmpID(int empID) {
-        this.empID = empID;
-    }
-
-
-
-
-    public double copmuteSalary(){
+    public double computeSalary(){
         double salary = 0;
 
-        if(this.totalHoursWorked <= 40){
-            salary = this.totalHoursWorked * this.ratePerHour;
-        }else if(this.totalHoursWorked > 40){
-            double regularPay = 40 * this.ratePerHour;
-            double overtimeRate = this.ratePerHour * 1.5;
-            double excessTime = this.totalHoursWorked - 40;
-            double overtimePay = overtimeRate * excessTime;
-            salary = regularPay + overtimePay;
+        if(totalHoursWorked <= 40){
+            salary = totalHoursWorked * ratePerHour;
+        }else{
+            salary += ratePerHour * 40;
+            totalHoursWorked -= 40;
+            salary += 1.5 * totalHoursWorked;
         }
-
 
         return salary;
     }
@@ -79,26 +70,14 @@ public class HourlyEmployee {
     }
 
 
-
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Employee Name: ");
-        sb.append(empName);
-        sb.append("\n");
-        sb.append("Employee ID: ");
-        sb.append(empID);
-        sb.append("\n");
-        sb.append("Total Hours Worked: ");
-        sb.append(totalHoursWorked);
-        sb.append("\n");
-        sb.append("Rate Per Hour: ");
-        sb.append(ratePerHour);
-        sb.append("\n");
-        sb.append("Salary: ");
-        sb.append(copmuteSalary());
+        sb.append(super.toString()).append("\n");
+        sb.append("Total hours worked: ").append(getTotalHoursWorked()).append("\n");
+        sb.append("Rate per hour: ").append(getRatePerHour()).append("\n");
+        sb.append("Salary: $").append(computeSalary()).append("\n");
 
 
         return sb.toString();

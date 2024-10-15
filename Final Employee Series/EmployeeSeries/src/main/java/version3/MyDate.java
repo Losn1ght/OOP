@@ -10,9 +10,24 @@ public class MyDate {
 
     }
 
+    public MyDate(int year){
+        this.year = year;
+    }
+
+    public MyDate(int year, int month){
+        this.year = year;
+        this.month = month;
+    }
+
     public MyDate(int month, int day, int year){
         this.month = month;
         this.day = day;
+        this.year = year;
+    }
+
+    public void setMyDate(int year, int month, int day) {
+        this.day = day;
+        this.month = month;
         this.year = year;
     }
 
@@ -46,7 +61,7 @@ public class MyDate {
 
     @Override
     public String toString(){
-        return String.format("Date: %d/%d/%d", month, day, year);
+        return String.format("Date: %d/%d/%d", getMonth(), getDay(), getYear());
     }
 }
 

@@ -1,25 +1,53 @@
 package version3;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 
 public class Employee {
     private int empID;
-    private String empName;
-    private LocalDate empDateBirth;
-    private LocalDate empDateHired;
+    private Name empName;
+    private MyDate empBirthDate;
+    private MyDate empDateHired;
 
-    public Employee(){
-
+    public Employee() {
+        this.empName = new Name();
+        this.empBirthDate = new MyDate();
+        this.empDateHired = new MyDate();
     }
 
-    public Employee(int empID,  String empName, LocalDate empDateBirth, LocalDate empDateHired ){
+    public Employee(int empID) {
+        this.empID = empID;
+        this.empName = new Name();
+        this.empBirthDate = new MyDate();
+        this.empDateHired = new MyDate();
+    }
+
+    public Employee(int empID, String fName, String lName) {
+        this.empID = empID;
+        this.empName = new Name(lName, fName);
+        this.empBirthDate = new MyDate();
+        this.empDateHired = new MyDate();
+    }
+
+    public Employee(int empID, String fName, String lName, String mName) {
+        this.empID = empID;
+        this.empName = new Name(lName, fName, mName);
+        this.empBirthDate = new MyDate();
+        this.empDateHired = new MyDate();
+    }
+
+    public Employee(int empID, String fName, String lName, String mName, int year, int month, int day) {
+        this.empID = empID;
+        this.empName = new Name(lName, fName, mName);
+        this.empBirthDate = new MyDate(year, month, day);
+        this.empDateHired = new MyDate();
+    }
+
+    public Employee(int empID, Name empName, MyDate empBirthDate, MyDate empDateHired) {
         this.empID = empID;
         this.empName = empName;
-        this.empDateBirth = empDateBirth;
+        this.empBirthDate = empBirthDate;
         this.empDateHired = empDateHired;
     }
+
 
     public int getEmpID() {
         return empID;
@@ -29,47 +57,43 @@ public class Employee {
         this.empID = empID;
     }
 
+    public void setEmpName(String fName, String mName, String lName) {
+        empName.setName(lName, fName, mName);
+    }
+
     public String getEmpName() {
-        return empName;
+        return empName.toString();
     }
 
-    public void setEmpName(String empName) {
-        this.empName = empName;
+    public MyDate getEmpBirthDate() {
+        return empBirthDate;
     }
 
-    public LocalDate getEmpDateBirth() {
-        return empDateBirth;
+    public void setEmpDateBirth(int year, int month, int day) {
+        empBirthDate.setMyDate(year, month, day);
     }
 
-    public void setEmpDateBirth(LocalDate empDateBirth) {
-        this.empDateBirth = empDateBirth;
-    }
-
-    public LocalDate getEmpDateHired() {
+    public MyDate getEmpDateHired() {
         return empDateHired;
     }
 
-    public void setEmpDateHired(LocalDate empDateHired) {
-        this.empDateHired = empDateHired;
+    public void setEmpDateHired(int year, int month, int day) {
+        empDateHired.setMyDate(year, month, day);
     }
 
-    public void display(){
+    public void displayEmployee() {
         System.out.println(this);
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
-        sb.append("Employee Name: ");
-        sb.append(empName);
-        sb.append("\nEmployee ID: ");
-        sb.append(empID);
-        sb.append("\nBirth Date: ");
-        sb.append(empDateBirth.format(df));
-        sb.append("\nDate Hired: ");
-        sb.append(empDateHired.format(df));
+
+        sb.append("Employee Name: ").append(getEmpName()).append(("\n"));
+        sb.append("Employee ID: ").append(getEmpID()).append("\n");
+        sb.append("Date of Birth: ").append(getEmpBirthDate().toString()).append("\n");
+        sb.append("Date Hired: ").append(getEmpDateHired().toString()).append("\n");
 
         return sb.toString();
     }
